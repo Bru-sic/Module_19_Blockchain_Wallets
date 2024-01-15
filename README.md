@@ -57,8 +57,6 @@ pip install web3==5.17
 ```
 
 
-To install the **bip44**  package, check that your `dev` environment is active, and then run the following:
-
 ```shell
 pip install bip44
 ```
