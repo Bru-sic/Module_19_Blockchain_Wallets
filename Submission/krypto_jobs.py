@@ -82,6 +82,9 @@ w3 = Web3(Web3.HTTPProvider("HTTP://127.0.0.1:7545"))
 #  and send_transaction
 # YOUR CODE HERE
 
+
+# Import the functions from crypto_wallet.py
+from crypto_wallet import generate_account, get_balance, send_transaction
 ################################################################################
 # KryptoJobs2Go Candidate Information
 
@@ -118,6 +121,13 @@ candidate_database = {
     ],
 }
 
+#Define constants to reference the fields in the candidate database more clearly
+idx_candidate_name = 0
+idx_candidate_eth_addr = 1
+idx_candidate_rating = 2
+idx_candidate_hourly_rate = 3
+idx_candidate_image = 4
+
 # A list of the KryptoJobs2Go candidates first names
 people = ["Lane", "Ash", "Jo", "Kendall"]
 
@@ -127,11 +137,11 @@ def get_people():
     db_list = list(candidate_database.values())
 
     for number in range(len(people)):
-        st.image(db_list[number][4], width=200)
-        st.write("Name: ", db_list[number][0])
-        st.write("Ethereum Account Address: ", db_list[number][1])
-        st.write("KryptoJobs2Go Rating: ", db_list[number][2])
-        st.write("Hourly Rate per Ether: ", db_list[number][3], "eth")
+        st.image(db_list[number][idx_candidate_image], width=200)
+        st.write("Name: ", db_list[number][idx_candidate_name])
+        st.write("Ethereum Account Address: ", db_list[number][idx_candidate_eth_addr])
+        st.write("KryptoJobs2Go Rating: ", db_list[number][idx_candidate_rating])
+        st.write("Hourly Rate per Ether: ", db_list[number][idx_candidate_hourly_rate], "eth")
         st.text(" \n")
 
 
@@ -157,7 +167,7 @@ st.sidebar.markdown("## Client Account Address and Ethernet Balance in Ether")
 # @TODO:
 #  Call the `generate_account` function and save it as the variable `account`
 # YOUR CODE HERE
-
+account = generate_account() # Get exisiting account details - ensure .env is configured with the Ganache Mnemonic
 ##########################################
 
 # Write the client's Ethereum account address to the sidebar
@@ -169,11 +179,17 @@ st.sidebar.write(account.address)
 # customer’s account. Inside this function, call the `get_balance` function and
 #  pass it your Ethereum `account.address`.
 
-# @TODO
-# Call `get_balance` function and pass it your account address
-# Write the returned ether balance to the sidebar
-# YOUR CODE HERE
+def show_balance():
+    """Displays the balance of the Ethereum account in Ether"""
+    # @TODO
+    # Call `get_balance` function and pass it your account address
+    # Write the returned ether balance to the sidebar
+    # YOUR CODE HERE
+    balance_eth = get_balance(w3, account.address) # Get the balance of the default account address
 
+    st.sidebar.write("Accoount Balance (Eth):", balance_eth) # Display the current balance in eth
+
+show_balance() # Call the show_balance function to display the balance of the account
 ##########################################
 
 # Create a select box to chose a FinTech Hire candidate
@@ -185,19 +201,19 @@ hours = st.sidebar.number_input("Number of Hours")
 st.sidebar.markdown("## Candidate Name, Hourly Rate, and Ethereum Address")
 
 # Identify the FinTech Hire candidate
-candidate = candidate_database[person][0]
+candidate = candidate_database[person][idx_candidate_name]
 
 # Write the KryptoJobs2Go candidate's name to the sidebar
 st.sidebar.write(candidate)
 
 # Identify the KryptoJobs2Go candidate's hourly rate
-hourly_rate = candidate_database[person][3]
+hourly_rate = candidate_database[person][idx_candidate_hourly_rate]
 
 # Write the inTech Finder candidate's hourly rate to the sidebar
 st.sidebar.write(hourly_rate)
 
 # Identify the KryptoJobs2Go candidate's Ethereum Address
-candidate_address = candidate_database[person][1]
+candidate_address = candidate_database[person][idx_candidate_eth_addr]
 
 # Write the inTech Finder candidate's Ethereum Address to the sidebar
 st.sidebar.write(candidate_address)
@@ -264,11 +280,13 @@ st.sidebar.markdown("## Total Wage in Ether")
 # rate from the candidate database (`candidate_database[person][3]`) by the
 # value of the `hours` variable
 # YOUR CODE HERE
+# Calculate the wage based on the hourly rate and the number of hours worked
+wage = candidate_database[person][idx_candidate_hourly_rate] * hours # Calculate the wage
 
 # @TODO
 # Write the `wage` calculation to the Streamlit sidebar
 # YOUR CODE HERE
-
+st.sidebar.write("Total Wage (Eth):", wage) # Display the current balance in eth
 ##########################################
 # Step 2 - Part 2:
 # * Call the `send_transaction` function and pass it three parameters:
@@ -295,6 +313,8 @@ if st.sidebar.button("Send Transaction"):
     # Your `account`, the `candidate_address`, and the `wage` as parameters
     # Save the returned transaction hash as a variable named `transaction_hash`
     # YOUR CODE HERE
+    # Send the transaction and store the returned transaction hash
+    transaction_hash = send_transaction(w3, account, candidate_address, wage)
 
     # Markdown for the transaction hash
     st.sidebar.markdown("#### Validated Transaction Hash")
@@ -340,7 +360,15 @@ get_people()
 # Save this screenshot to the README.md file of your GitHub repository for
 #  this Challenge assignment.
 
+# >>>>>>>>>>>>>>>>>>>>
+# See Submission\Screenshots\Screenshot_step_5.png
+# See Submission\Screenshots\Screenshot_step_5_tx.png
+
+ 
 # 6. Navigate to the Ganache transactions tab and locate the transaction.
 # * Click the transaction and take a screenshot of it.
 # Save this screenshot to the README.md file of your GitHub repository for
 #  this Challenge assignment.
+
+# >>>>>>>>>>>>>>>>>>>>
+# See Submission\Screenshots\Screenshot_step_6.png

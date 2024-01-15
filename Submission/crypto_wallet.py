@@ -56,23 +56,22 @@ def send_transaction(w3, account, to, wage):
     w3.eth.setGasPriceStrategy(medium_gas_price_strategy)
 
     # Convert eth amount to Wei
-    value = w3.toWei(wage, "ether")
+    wage_wei = w3.toWei(wage, "ether")
 
     # Calculate gas estimate
     gasEstimate = w3.eth.estimateGas(
-        {"to": to, "from": account.address, "value": value}
+        {"to": to, "from": account.address, "value": wage_wei}
     )
 
     # Construct a raw transaction
     raw_tx = {
         "to": to,
         "from": account.address,
-        "value": value,
+        "value": wage_wei,
         "gas": gasEstimate,
-        "gasPrice": 0,
+        "gasPrice": 1000000000, # BI changed from 0 to a high value to overcome runtime error: Transaction's maxFeePerGas (0) is less than the block's baseFeePerGas (766308394) (vm hf=merge -> block -> tx)
         "nonce": w3.eth.getTransactionCount(account.address),
     }
-
     # Sign the raw transaction with ethereum account
     signed_tx = account.signTransaction(raw_tx)
 
