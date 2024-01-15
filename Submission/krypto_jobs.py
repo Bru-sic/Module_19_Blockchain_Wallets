@@ -121,12 +121,12 @@ candidate_database = {
     ],
 }
 
-#Define constants to reference the fields in the candidate database more clearly
-idx_candidate_name = 0
-idx_candidate_eth_addr = 1
-idx_candidate_rating = 2
-idx_candidate_hourly_rate = 3
-idx_candidate_image = 4
+# Define constants to reference the candidate database columns more evidently
+idx_candidate_name = 0               # Candidate's Name column index
+idx_candidate_eth_addr = 1           # Candidate's Ethereum Account Address column index
+idx_candidate_rating = 2             # Candidate's KryptoJobs2Go Rating column index
+idx_candidate_hourly_rate = 3        # Candidate's Hourly Rate in Ether column index
+idx_candidate_image = 4              # Candidate's Image filename column index
 
 # A list of the KryptoJobs2Go candidates first names
 people = ["Lane", "Ash", "Jo", "Kendall"]
@@ -136,6 +136,7 @@ def get_people():
     """Display the database of KryptoJobs2Go candidate information."""
     db_list = list(candidate_database.values())
 
+    # Iterate through the candidate db list and display each candidate's details 
     for number in range(len(people)):
         st.image(db_list[number][idx_candidate_image], width=200)
         st.write("Name: ", db_list[number][idx_candidate_name])
@@ -360,15 +361,7 @@ get_people()
 # Save this screenshot to the README.md file of your GitHub repository for
 #  this Challenge assignment.
 
-# >>>>>>>>>>>>>>>>>>>>
-# See Submission\Screenshots\Screenshot_step_5.png
-# See Submission\Screenshots\Screenshot_step_5_tx.png
-
- 
 # 6. Navigate to the Ganache transactions tab and locate the transaction.
 # * Click the transaction and take a screenshot of it.
 # Save this screenshot to the README.md file of your GitHub repository for
 #  this Challenge assignment.
-
-# >>>>>>>>>>>>>>>>>>>>
-# See Submission\Screenshots\Screenshot_step_6.png
