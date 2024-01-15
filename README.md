@@ -13,7 +13,7 @@ Files associated with this solution:
 
 
 # Output Screen Shots
-The screen shots below are of a payment may with the Krypto Jobs App of 4.5 Hours to Jo, who charges 0.19 ETH per hour, making a total of 0.855 ETH due in wages. Jo's (TO) Ethereum Address is 0x4B24C82F5D995D1BC4D861A0D2927e3A84Aba8dC. The client's (SENDER) Ethereum Address is 0xa6f59e711F83B35641214757B4ea4aF9f019DBaC.
+The screen shots below are of a payment made to Jo via the Krypto Jobs App for 4.5 Hours of professional fintech services. Jo charges 0.19 ETH per hour, making a total of 0.855 ETH due in wages. Jo's (TO) Ethereum Address is 0x4B24C82F5D995D1BC4D861A0D2927e3A84Aba8dC. The client's (SENDER) Ethereum Address is 0xa6f59e711F83B35641214757B4ea4aF9f019DBaC.
 
 ---
 
@@ -58,9 +58,9 @@ The original unedited image of the above can be found here:  [Screenshot_4_Ganac
 
 # Enhancements to base starter code
 * Items marked as @TODO
-* Replaced numeric indexes used to access specific columns in the candidate_database with named variables (constants) 
+* Replaced numeric indexes in krypto_jobs.py used to access specific columns in the candidate_database with named variables (constants) for ease of readibility and maintainability.
 * Resolved runtime error caused by line 72 of crypto_wallet.py as the GasPrice was set to 0.
-* Renamed `value variable` in send_transaction function (crypto_wallet.py) to `wage_wei`  
+* Renamed `value` variable in send_transaction function (crypto_wallet.py) to `wage_wei` for ease of readibility.
 
 # Dependencies
 * streamlit
